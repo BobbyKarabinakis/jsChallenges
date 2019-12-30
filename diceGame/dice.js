@@ -14,26 +14,7 @@
 
 var roundScore, globalScore, scores, activePlayer, dice;
 
-scores = [0, 0];
-roundScore = 0;
-globalScore = 0;
-activePlayer = 0;
-
-
-//Set all numbers to 0 when starting
-document.getElementById('current-0').textContent = 0
-document.getElementById('score-0').textContent = 0
-document.getElementById('current-1').textContent = 0
-document.getElementById('score-1').textContent = 0
-
-
-
-
-//Hide the dice if not rolled
-document.querySelector('.dice').style.display = 'none';
-
-
-
+init();
 
 document.querySelector('.btn-roll').addEventListener("click", function () {
     //1. Get the random number
@@ -90,6 +71,35 @@ document.querySelector('.btn-hold').addEventListener("click", function () {
 
 });
 
+document.querySelector('.btn-new').addEventListener("click", init);
+
+
+function init() {
+    scores = [0, 0];
+    roundScore = 0;
+    globalScore = 0;
+    activePlayer = 0;
+
+    //Set all numbers to 0 when starting
+    document.getElementById('current-0').textContent = 0
+    document.getElementById('score-0').textContent = 0
+    document.getElementById('current-1').textContent = 0
+    document.getElementById('score-1').textContent = 0
+    //Reset the Player names
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+    //Reset the CSS for the winner
+    document.querySelector('.player-0-panel').classList.add('active');
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+
+    //Hide the dice if not rolled
+    document.querySelector('.dice').style.display = 'none';
+
+
+
+}
+
 function nextPlayer() {
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
@@ -107,9 +117,13 @@ function playerPanelSwitch() {
 function winnerCheck() {
     if (scores[activePlayer] > 20) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner';
-    }else{
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+
+    } else {
         nextPlayer();
     }
 
 }
+
 
