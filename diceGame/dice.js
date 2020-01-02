@@ -90,6 +90,7 @@ function init() {
     document.getElementById('name-1').textContent = 'Player 2';
     //Reset the CSS for the winner
     document.querySelector('.player-0-panel').classList.add('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.remove('winner');
     document.querySelector('.player-1-panel').classList.remove('winner');
 
@@ -115,7 +116,7 @@ function playerPanelSwitch() {
 }
 
 function winnerCheck() {
-    if (scores[activePlayer] > 20) {
+    if (scores[activePlayer] >= 50) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner';
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
