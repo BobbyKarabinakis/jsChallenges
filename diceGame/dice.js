@@ -19,7 +19,7 @@ init();
 
 
 document.querySelector('.btn-roll').addEventListener("click", function () {
-    
+    //NEW BRANCH
     //Save previous roll to check if user rolls 6 twice
     previousRoll = dice;
 
