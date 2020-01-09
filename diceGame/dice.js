@@ -12,14 +12,13 @@
  * 
  */
 
-var roundScore, globalScore, scores, activePlayer, dice, gamePlaying, previousRoll, rollNum;
+var roundScore, globalScore, scores, activePlayer, dice, gamePlaying, previousRoll, rollNum, setUsrScore;
 
 init();
 
 
-
 document.querySelector('.btn-roll').addEventListener("click", function () {
-    //NEW BRANCH
+
     //Save previous roll to check if user rolls 6 twice
     previousRoll = dice;
 
@@ -95,6 +94,8 @@ function init() {
     globalScore = 0;
     activePlayer = 0;
     gamePlaying = true;
+    setUsrScore = 50;
+
 
     //Set all numbers to 0 when starting
     document.getElementById('current-0').textContent = 0
@@ -113,6 +114,14 @@ function init() {
     //Hide the dice if not rolled
     document.querySelector('.dice').style.display = 'none';
 
+    //Show the area to set the Winning Score
+    document.getElementById('set-score').classList.add('input');
+    document.getElementById('set-score').classList.remove('hide-input');
+    document.getElementById('set-score-btn').classList.remove('hide-input');
+
+    //Reset the Winning Score Form Input
+    document.getElementById('set-score').value="";
+    document.getElementById('set-score').disabled = false;
 
 
 }
@@ -135,7 +144,7 @@ function playerPanelSwitch() {
 
 //Function that checks which player has won
 function winnerCheck() {
-    if (scores[activePlayer] >= 50) {
+    if (scores[activePlayer] >= setUsrScore) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner';
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
@@ -147,4 +156,17 @@ function winnerCheck() {
 
 }
 
+//Function that reads the Winning score set by players
+function setScore(){
+    setUsrScore = document.getElementById('set-score').value;
 
+   if(setUsrScore != 50){
+    //Hide the score input after it has been entered
+    document.getElementById('set-score').value = 'First Player to ' + setUsrScore + ' Wins';
+    document.getElementById('set-score').disabled = true;
+    // document.getElementById('set-score').classList.add('hide-input');
+    // document.getElementById('set-score').classList.remove('input');
+    document.getElementById('set-score-btn').classList.add('hide-input');
+   }
+    
+}
